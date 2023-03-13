@@ -5,7 +5,8 @@ import {storeToRefs} from "pinia" /* para listening da mensagem de erro */
 
 const userStore = useUserStore();
 
-const { errorMessage, loading } = storeToRefs(userStore);  /* pegando o errorMessage e handleSignup e as atribuindo para duas novas variaveis com o mesmo nome */
+const { errorMessage, loading, user } = storeToRefs(userStore);  /* pegando o errorMessage e handleSignup e as atribuindo para duas novas variaveis com o mesmo nome */
+
 const props = defineProps(['isLogin']);
 const visible = ref(false);
 
@@ -17,15 +18,37 @@ const userCredentials = reactive({ /* vue monitora e reage a qualquer mudança f
 
 const showModal = () => {
   visible.value = true;
+  
 };
 
-const handleOk = (e) => {
-  userStore.handleSignup(userCredentials);
+const handleOk = async (e) => {
+  if(props.isLogin){
+    await userStore.handleLogin({
+      email: userCredentials.email,
+      password: userCredentials.password
+    });
+  }
+  else{
+  await userStore.handleSignup(userCredentials); /* para esperar acontecer o signup */
+  }
+  if(user.value){
+    console.log("USUARIO TEM VALOR")
+    clearUserCredentialsInput();
+    visible.value = false;
+    }
+  
 };
+
+const clearUserCredentialsInput = () => {
+  userCredentials.email = "";
+    userCredentials.password = "";
+    userCredentials.username = "";
+    userStore.clearErrorMessage();
+}
 
 const handleCancel = (e) => {
+  clearUserCredentialsInput();
   visible.value = false; /* para fechar modal */
-  userStore.clearErrorMessage();
 };
 
 const title = props.isLogin ? 'Entrar' : 'Cadastrar';
@@ -33,7 +56,6 @@ const title = props.isLogin ? 'Entrar' : 'Cadastrar';
 </script>
 
 <template>
-{{userCredentials.username}}
   <div>
     <a-button type="primary" @click="showModal" class="btn">{{ title }}</a-button>
     <a-modal v-model:visible="visible" :title="title" @ok="handleOk">
