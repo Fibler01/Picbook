@@ -27,8 +27,9 @@ const data = [
 
 <template>
   <Container>
-    <div class="profile-container">
+    <div class="profile-container"> <!-- para deixar o route reativo (ao trocar de perfil n aparecer upload imagem, é necessario usar key), o parametro é o username -->
       <UserBar
+      :key="$route.params.username" 
       username="Joao"
       :userInfo="{
         posts:4,
