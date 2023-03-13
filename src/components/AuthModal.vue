@@ -23,6 +23,11 @@ const handleOk = (e) => {
   userStore.handleSignup(userCredentials);
 };
 
+const handleCancel = (e) => {
+  visible.value = false; /* para fechar modal */
+  userStore.clearErrorMessage();
+};
+
 const title = props.isLogin ? 'Entrar' : 'Cadastrar';
 
 </script>
@@ -31,7 +36,11 @@ const title = props.isLogin ? 'Entrar' : 'Cadastrar';
 {{userCredentials.username}}
   <div>
     <a-button type="primary" @click="showModal" class="btn">{{ title }}</a-button>
-    <a-modal cancelText="Cancelar" v-model:visible="visible" :title="title" @ok="handleOk">
+    <a-modal v-model:visible="visible" :title="title" @ok="handleOk">
+      <template #footer>
+        <a-button key="back" @click="handleCancel()">Cancelar</a-button>
+        <a-button key="submit" type="primary" :loading="loading" @click="handleOk()">Ok</a-button>
+      </template>
       <a-input class="custom-input" v-if="isLogin==false" v-model:value="userCredentials.username" placeholder="Nome de usuário" />
       <a-input class="custom-input" v-model:value="userCredentials.email" placeholder="Email" />
       <a-input class="custom-input" v-model:value="userCredentials.password" placeholder="Senha" type="password" />
