@@ -7,7 +7,7 @@ const { VITE_BASE_PHOTO_URL } = import.meta.env;
 
 
 <template>
-  <a-card hoverable style="width: 50%;" class="card">
+  <a-card hoverable class="card">
     <template #cover>
       <img :src="`${VITE_BASE_PHOTO_URL}${post.url}`" />
     </template>
@@ -19,6 +19,7 @@ const { VITE_BASE_PHOTO_URL } = import.meta.env;
 
 <style scoped>
 .card {
+  max-width: 30%;
   align-items: center;
   text-align: center;
   margin-bottom: 20px;

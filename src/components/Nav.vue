@@ -2,11 +2,16 @@
 import { RouterLink, useRouter } from "vue-router";
 import Container from "./Container.vue";
 import AuthModal from "./AuthModal.vue";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useUserStore } from "../stores/users";
 import { storeToRefs } from "pinia";
+import { useCheckScreen } from "../stores/checkScreen"
+
+const checkScreen = useCheckScreen();
+const { isSmallScreen } = storeToRefs(checkScreen);
 
 const userStore = useUserStore();
+
 
 const { user, loadingUser } = storeToRefs(userStore);
 const router = useRouter();
@@ -22,40 +27,74 @@ const onSearch = () => {
 
 const handleLogout = async () => {
   await userStore.handleLogout();
-}
+};
 
 const goToUserProfile = () => {
-  router.push(`/profile/${user.value.username}`)
-}
+  router.push(`/profile/${user.value.username}`);
+};
 </script>
 
 <template>
   <a-layout-header class="nav-bar">
     <!-- container que criei p limitar o tamanho do header -->
     <Container>
-      <div class="nav-container">
+      <div v-if="!isSmallScreen" class="nav-container">
         <div class="right-content">
           <RouterLink to="/" class="bright-purple">Picbook</RouterLink>
-          <a-input-search class="search"
+          <a-input-search
+            class="search"
             v-model:value="searchUsername"
             placeholder="Nome do usuário..."
-            style="width: 300px;"
+            style="width: 300px"
             @search="onSearch"
           />
         </div>
         <div class="content" v-if="loadingUser">
           <a-spin />
         </div>
-        <div class="content" v-if="!loadingUser"> <!-- parte com problema -->
+        <div class="content" v-if="!loadingUser">
+          <!-- parte com problema -->
           <div class="left-content" v-if="!user">
             <auth-modal :isLogin="false" />
             <auth-modal :isLogin="true" />
           </div>
           <div class="left-content" v-else>
             <a-typography class="blank">{{ user.username }}</a-typography>
-            <a-button type="primary"  @click="goToUserProfile()">Perfil</a-button>
+            <a-button type="primary" @click="goToUserProfile()"
+              >Perfil</a-button
+            >
             <a-button type="primary" @click="handleLogout()">Sair</a-button>
+          </div>
         </div>
+      </div>
+      
+      <div v-if="isSmallScreen" class="nav-container-mini">
+        <div class="right-content">
+          <RouterLink to="/" class="bright-purple">Picbook</RouterLink>
+          <a-input-search
+            class="search"
+            v-model:value="searchUsername"
+            placeholder="Nome do usuário..."
+            style="width: 300px"
+            @search="onSearch"
+          />
+        </div>
+        <div class="content" v-if="loadingUser">
+          <a-spin />
+        </div>
+        <div class="content" v-if="!loadingUser">
+          <!-- parte com problema -->
+          <div class="left-content" v-if="!user">
+            <auth-modal :isLogin="false" />
+            <auth-modal :isLogin="true" />
+          </div>
+          <div class="left-content" v-else>
+            <a-typography class="blank">{{ user.username }}</a-typography>
+            <a-button type="primary" @click="goToUserProfile()"
+              >Perfil</a-button
+            >
+            <a-button type="primary" @click="handleLogout()">Sair</a-button>
+          </div>
         </div>
       </div>
     </Container>
@@ -68,10 +107,17 @@ const goToUserProfile = () => {
   justify-content: space-between;
 }
 
+.blank{
+  margin-left: 10%;
+}
+
+.nav-container-mini {
+  display: flex; /* para deixar tudo horizontal */
+}
 
 .content {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .nav-bar {
@@ -80,7 +126,6 @@ const goToUserProfile = () => {
   left: 0;
   width: 100%;
   z-index: 10;
-   
 }
 
 .right-content {

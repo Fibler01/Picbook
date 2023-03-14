@@ -74,4 +74,10 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.timeline-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 </style>

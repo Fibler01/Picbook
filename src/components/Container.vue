@@ -6,7 +6,9 @@
 
 <style scoped>
 .container {
-    width: 1000px;
+    width: 80%;
+    min-width: 740px;
     margin: 0 auto;
+    align-content: center;
 }
 </style>
