@@ -31,7 +31,7 @@ const unfollowUser = async () => {
 <template>
     <div class="userbar-container" v-if="props.user">
         <div class="top-content">
-            <a-typography-title class="blank" :level="2">{{ props.user.username }}</a-typography-title>
+            <a-typography-title class="black" :level="2">{{ props.user.username }}</a-typography-title>
                 <div v-if="user">
                     <upload-photo-modal v-if="user && profileUsername===user.username"
                     :addNewPost="addNewPost"
@@ -56,13 +56,11 @@ const unfollowUser = async () => {
 <style scoped>
 .userbar-container {
     padding-bottom: 75px;
-    color: aliceblue;
 }
 
 .bottom-content {
     display: flex;
     align-items: center;
-    color: aliceblue;
 }
 
 .bottom-content h5 {
@@ -70,18 +68,19 @@ const unfollowUser = async () => {
     padding: 0;
     margin-right: 30px !important;
     align-items: center;
-    color: aliceblue;
 }
 
 .top-content{
+    padding: 8% 0px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     
 }
 
-.blank{
-    color: aliceblue;
+.black{
+    color: rgb(0, 0, 0);
+    text-shadow: 0 0 10px #fff, 0 0 1px #fff, 0 0 10px #fff, 0 0 100px rgb(0, 0, 0), 0 0 100px rgb(255, 255, 255), 0 0 80px rgb(255, 255, 255), 0 0 100px rgb(43, 3, 163), 0 0 150px rgb(0, 0, 128);
 }
 
 

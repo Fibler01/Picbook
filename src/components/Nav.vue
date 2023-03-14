@@ -53,8 +53,8 @@ const goToUserProfile = () => {
           </div>
           <div class="left-content" v-else>
             <a-typography class="blank">{{ user.username }}</a-typography>
-            <a-button class="default-button" @click="goToUserProfile()">Perfil</a-button>
-            <a-button class="default-button" @click="handleLogout()">Sair</a-button>
+            <a-button type="primary"  @click="goToUserProfile()">Perfil</a-button>
+            <a-button type="primary" @click="handleLogout()">Sair</a-button>
         </div>
         </div>
       </div>
@@ -75,7 +75,12 @@ const goToUserProfile = () => {
 }
 
 .nav-bar {
-  background-color: rgba(14, 14, 14, 0.723); 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+   
 }
 
 .right-content {

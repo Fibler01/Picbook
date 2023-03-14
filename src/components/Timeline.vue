@@ -29,7 +29,7 @@ const { user, loadingUser } = storeToRefs(userStore);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 0px;
+  padding: 50px 0px;
 }
 
 .timeline-spinner {
