@@ -1,5 +1,5 @@
 <script setup>
-import {defineProps} from "vue"
+import { defineProps } from "vue";
 
 const props = defineProps(["posts"]);
 </script>
@@ -7,7 +7,7 @@ const props = defineProps(["posts"]);
 
 <template>
   <div class="image-gallery-container">
-    <img v-for="post in props.posts" :key="post.id" :src="post.image" alt="" />
+    <img v-for="post in props.posts" :key="post.id" :src="`https://pghsxgvyagmzmgwzfpbh.supabase.co/storage/v1/object/public/images/${post.url}`" alt="" />
   </div>
 </template>
 

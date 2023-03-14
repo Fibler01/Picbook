@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, defineProps } from "vue";
 import { supabase } from "../supabase";
 import { useUserStore } from "../stores/users";
 import { storeToRefs } from "pinia";
@@ -7,7 +7,7 @@ import { storeToRefs } from "pinia";
 const userStore = useUserStore();
 
 const { user } = storeToRefs(userStore);
-
+const props = defineProps(["addNewPost"]);
 const errorMessage = ref("");
 const loading = ref(false);
 const visible = ref(false);
@@ -21,21 +21,32 @@ const showModal = () => {
 const handleOk = async (e) => {
   loading.value = true;
   const fileName = Math.floor(Math.random() * 100000000000000);
+  let filePath
   if (file.value) {
     const { data, error } = await supabase.storage
       .from("images")
       .upload("public/" + fileName, file.value);
+
     if (error) {
       loading.value = false;
       return (errorMessage.value = "Não foi possível enviar a foto");
     }
+
+    filePath = data.path
+
     if (data) {
       await supabase.from("posts").insert({
-        url: data.path,
+        url: filePath,
         caption: caption.value,
         owner_id: user.value.id,
       });
       loading.value = false;
+      visible.value = false;
+      caption.value = "";
+      props.addNewPost({
+        url: filePath,
+        caption: caption.value
+      });
     }
   }
 };
@@ -58,7 +69,9 @@ const handleUploadChange = (e) => {
           placeholder="Descrição..."
           :maxLength="50"
         ></a-input>
-        <a-typography v-if="errorMessage" type="danger">{{ errorMessage }}</a-typography>
+        <a-typography v-if="errorMessage" type="danger">{{
+          errorMessage
+        }}</a-typography>
       </div>
       <div v-else>
         <a-spin />
@@ -73,8 +86,8 @@ input {
 }
 
 .spinner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
