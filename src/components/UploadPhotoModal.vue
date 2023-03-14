@@ -37,6 +37,7 @@ const handleOk = async (e) => {
     if (data) {
       await supabase.from("posts").insert({
         url: filePath,
+        username: user.value.username,
         caption: caption.value,
         owner_id: user.value.id,
       });
