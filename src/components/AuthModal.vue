@@ -57,11 +57,11 @@ const title = props.isLogin ? 'Entrar' : 'Cadastrar';
 
 <template>
   <div>
-    <a-button @click="showModal" class="btn">{{ title }}</a-button>
+    <a-button @click="showModal" class="btn" type="primary">{{ title }}</a-button>
     <a-modal v-model:visible="visible" :title="title" @ok="handleOk">
       <template #footer>
-        <a-button class="default-button" key="back" @click="handleCancel()">Cancelar</a-button>
-        <a-button class="default-button" :disabled="loading" key="submit" :loading="loading" @click="handleOk()">Ok</a-button>
+        <a-button type="danger" key="back" @click="handleCancel()">Cancelar</a-button>
+        <a-button type="primary" :disabled="loading" key="submit" :loading="loading" @click="handleOk()">Ok</a-button>
       </template>
       <div v-if="!loading" class="input-container">
         <a-input class="custom-input" v-if="isLogin==false" v-model:value="userCredentials.username" placeholder="Nome de usuário" />
@@ -79,10 +79,7 @@ const title = props.isLogin ? 'Entrar' : 'Cadastrar';
 <style scoped>
 .btn {
     margin-left: 10px;
-    background-color: rgb(170, 67, 218);
-    border-color: rgb(170, 67, 218);
     border-radius: 3px;
-    color: aliceblue;
 }
 
 .btn :hover{

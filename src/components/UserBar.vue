@@ -59,6 +59,10 @@ const unfollowUser = async () => {
 }
 
 .bottom-content {
+    /* border-bottom: 3px solid black; */
+    /* background-image: linear-gradient(to right, #d3d3d3, #fff); */
+    background-size: 100% 3px; /* tamanho de plano de fundo de 100% largura e 3px de altura */
+    background-position: left bottom; /* posicionamento do plano de fundo no canto inferior esquerdo */
     display: flex;
     align-items: center;
 }
@@ -80,7 +84,7 @@ const unfollowUser = async () => {
 
 .black{
     color: rgb(0, 0, 0);
-    text-shadow: 0 0 10px #fff, 0 0 1px #fff, 0 0 10px #fff, 0 0 100px rgb(0, 0, 0), 0 0 100px rgb(255, 255, 255), 0 0 80px rgb(255, 255, 255), 0 0 100px rgb(43, 3, 163), 0 0 150px rgb(0, 0, 128);
+    text-shadow: 0 0 10px #abbee6, 0 0 1px #ebe9e9, 0 0 10px #aea7a7, 0 0 100px rgb(203, 203, 203), 0 0 100px rgb(255, 255, 255), 0 0 80px rgb(255, 255, 255), 0 0 100px rgb(43, 3, 163), 0 0 150px rgb(0, 0, 128);
 }
 
 
