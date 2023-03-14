@@ -12,11 +12,7 @@ const props = defineProps(["posts"]);
 </template>
 
 <style scoped>
-.image-gallery-container {
-  display: flex;
-  justify-content: left;
-  flex-wrap: wrap;
-}
+
 
 img {
   margin: 5px;
