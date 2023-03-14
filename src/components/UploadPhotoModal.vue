@@ -60,7 +60,7 @@ const handleUploadChange = (e) => {
 </script>
 <template>
   <div>
-    <a-button @click="showModal">Nova imagem</a-button>
+    <a-button class="default-button" @click="showModal">Nova imagem</a-button> <!-- mudar botoes aqui -->
 
     <a-modal v-model:visible="visible" title="Upload Photo" @ok="handleOk">
       <div v-if="!loading">

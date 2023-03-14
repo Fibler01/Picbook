@@ -1,1 +1,29 @@
 @import './base.css';
+body{
+        
+        background-color: rgba(3, 3, 3, 0.859);
+}
+
+
+
+.bright-purple{
+    color: aliceblue;
+    text-shadow: 0 0 10px #fff, 0 0 1px #fff, 0 0 10px #fff, 0 0 100px purple, 0 0 100px purple, 0 0 80px purple, 0 0 100px purple, 0 0 150px purple;
+}
+
+.blank{
+    color:aliceblue;
+}
+
+.default-button{
+    background-color: rgb(170, 67, 218);
+    border-color: rgb(170, 67, 218);
+    border-radius: 3px;
+    color: aliceblue;
+  }
+  
+  .default-button :hover{
+    
+    border-color: rgb(75, 0, 110);
+    
+  }

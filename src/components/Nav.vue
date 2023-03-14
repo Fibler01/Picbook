@@ -35,11 +35,11 @@ const goToUserProfile = () => {
     <Container>
       <div class="nav-container">
         <div class="right-content">
-          <RouterLink to="/">Picbook</RouterLink>
-          <a-input-search
+          <RouterLink to="/" class="bright-purple">Picbook</RouterLink>
+          <a-input-search class="search"
             v-model:value="searchUsername"
             placeholder="Nome do usuário..."
-            style="width: 200px"
+            style="width: 300px;"
             @search="onSearch"
           />
         </div>
@@ -52,8 +52,9 @@ const goToUserProfile = () => {
             <auth-modal :isLogin="true" />
           </div>
           <div class="left-content" v-else>
-            <a-button type="primary" @click="goToUserProfile()">Perfil</a-button>
-            <a-button type="primary" @click="handleLogout()">Sair</a-button>
+            <a-typography class="blank">{{ user.username }}</a-typography>
+            <a-button class="default-button" @click="goToUserProfile()">Perfil</a-button>
+            <a-button class="default-button" @click="handleLogout()">Sair</a-button>
         </div>
         </div>
       </div>
@@ -67,13 +68,14 @@ const goToUserProfile = () => {
   justify-content: space-between;
 }
 
+
 .content {
     display: flex;
     align-items: center;
 }
 
 .nav-bar {
-  /* background-color: rgb(61, 0, 117); */
+  background-color: rgba(14, 14, 14, 0.723); 
 }
 
 .right-content {

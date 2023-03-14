@@ -7,3 +7,6 @@ import Timeline from "../components/Timeline.vue"
     <Timeline/>
   </main>
 </template>
+
+<style scoped>
+</style>
