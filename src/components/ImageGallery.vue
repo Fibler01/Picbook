@@ -1,5 +1,11 @@
 <script setup>
 import { defineProps } from "vue";
+import { storeToRefs } from "pinia";
+import { useCheckScreen } from "../stores/checkScreen"
+
+const checkScreen = useCheckScreen();
+const { isSmallScreen, isVerySmallScreen } = storeToRefs(checkScreen);
+
 const {VITE_BASE_PHOTO_URL} = import.meta.env
 const props = defineProps(["posts"]);
 </script>
@@ -7,15 +13,20 @@ const props = defineProps(["posts"]);
 
 <template>
   <div class="image-gallery-container">
-    <img v-for="post in props.posts" :key="post.id" :src="`${VITE_BASE_PHOTO_URL}${post.url}`" alt="" />
+    <img :class="{ 'img': !isVerySmallScreen, 'img-mini': isVerySmallScreen }" v-for="post in props.posts" :key="post.id" :src="`${VITE_BASE_PHOTO_URL}${post.url}`" alt="" />
   </div>
 </template>
 
 <style scoped>
 
 
-img {
+.img {
   margin: 5px;
   width: 200px;
+}
+
+.img-mini {
+  margin: 5px;
+  width: 31%;
 }
 </style>

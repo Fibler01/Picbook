@@ -7,6 +7,11 @@ import { supabase } from "../supabase";
 import { useRoute } from "vue-router";
 import { useUserStore } from "../stores/users";
 import { storeToRefs } from "pinia";
+import { useCheckScreen } from "../stores/checkScreen"
+
+
+const checkScreen = useCheckScreen();
+const { isSmallScreen, isVerySmallScreen } = storeToRefs(checkScreen);
 
 const userStore = useUserStore();
 const { user: loggedInUser } = storeToRefs(userStore);
@@ -107,7 +112,8 @@ onMounted(() => {
 
 <template>
   <Container>
-    <div class="profile-container" v-if="!loading">
+    <div :class="{ 'profile-container': !isVerySmallScreen, 'profile-container-mini': isVerySmallScreen }" v-if="!loading">
+      
       <!-- para deixar o route reativo (ao trocar de perfil n aparecer upload imagem, é necessario usar key), o parametro é o username -->
       <UserBar
         :key="$route.params.username"
@@ -117,6 +123,7 @@ onMounted(() => {
         :isFollowing="isFollowing"
         :updateIsFollowing="updateIsFollowing"
       />
+      
       <ImageGallery :posts="posts" />
     </div>
     <div class="spinner" v-else>
@@ -130,6 +137,12 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
   padding: 20px 0px;
+}
+
+.profile-container-mini {
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 0px;
 }
 
 .spinner {

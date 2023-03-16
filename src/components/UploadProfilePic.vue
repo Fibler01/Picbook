@@ -1,0 +1,116 @@
+<script setup>
+import { ref, defineProps, onMounted } from "vue";
+import { supabase } from "../supabase";
+import { useUserStore } from "../stores/users";
+import { storeToRefs } from "pinia";
+
+const userStore = useUserStore();
+
+const { user } = storeToRefs(userStore);
+const props = defineProps(["addNewPost", "previousProfilePic"]);
+const errorMessage = ref("");
+const loading = ref(false);
+const visible = ref(false);
+const caption = ref("");
+const file = ref(null);
+
+const { VITE_BASE_PHOTO_URL } = import.meta.env;
+
+const showModal = () => {
+  visible.value = true;
+};
+
+const deletePreviousProfilePic = async () => {
+  if (props.previousProfilePic) { /* remove(VITE_BASE_PHOTO_URL + props.previousProfilePic); */
+    try {
+      const { data, error } = await supabase.storage.from('images').remove([props.previousProfilePic])
+      console.log(data);
+
+      if (error) {
+        console.log("Erro ao apagar imagem:", error.message);
+      } else {
+        console.log("Imagem apagada com sucesso:", props.previousProfilePic);
+      }
+    } catch (error) {
+      console.log("Erro ao apagar imagem:", error.message);
+    }
+  }
+};
+
+const handleOk = async (e) => {
+  loading.value = true;
+  const fileName = Math.floor(Math.random() * 100000000000000);
+  let filePath;
+  if (file.value) {
+    const { data, error } = await supabase.storage
+      .from("images")
+      .upload("public/" + fileName, file.value);
+
+    if (error) {
+      loading.value = false;
+      return (errorMessage.value = "Não foi possível enviar a foto");
+    }
+
+    filePath = data.path;
+
+    if (data) {
+      await deletePreviousProfilePic();
+      /* apagar imagem anterior */
+      await supabase
+        .from("users")
+        .update({
+          profilePic: filePath,
+        })
+        .eq("id", user.value.id);
+
+      loading.value = false;
+      visible.value = false;
+      caption.value = "";
+      /* props.addNewPost({
+        url: filePath,
+        caption: caption.value,
+      }); */
+    }
+  }
+};
+
+onMounted(() => {
+  console.log(props.previousProfilePic);
+});
+
+const handleUploadChange = (e) => {
+  if (e.target.files[0]) {
+    file.value = e.target.files[0];
+  }
+};
+</script>
+<template>
+  <div>
+    <a-button type="primary" @click="showModal">Nova imagem</a-button>
+    <!-- mudar botoes aqui -->
+
+    <a-modal v-model:visible="visible" title="Upload Photo" @ok="handleOk">
+      <div v-if="!loading">
+        <input type="file" accept=".jpeg,.png" @change="handleUploadChange" />
+        <a-typography v-if="errorMessage" type="danger">{{
+          errorMessage
+        }}</a-typography>
+      </div>
+      <div v-else>
+        <a-spin />
+      </div>
+    </a-modal>
+  </div>
+</template>
+
+<style scoped>
+input {
+  margin-top: 10px;
+}
+
+.spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>
