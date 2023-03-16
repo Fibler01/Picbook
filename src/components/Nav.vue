@@ -8,7 +8,7 @@ import { storeToRefs } from "pinia";
 import { useCheckScreen } from "../stores/checkScreen"
 
 const checkScreen = useCheckScreen();
-const { isSmallScreen } = storeToRefs(checkScreen);
+const { isSmallScreen, isVerySmallScreen } = storeToRefs(checkScreen);
 
 const userStore = useUserStore();
 
@@ -35,7 +35,7 @@ const goToUserProfile = () => {
 </script>
 
 <template>
-  <a-layout-header class="nav-bar">
+  <a-layout-header v-if="!isVerySmallScreen" class="nav-bar">
     <!-- container que criei p limitar o tamanho do header -->
     <Container>
       <div v-if="!isSmallScreen" class="nav-container">
@@ -99,6 +99,45 @@ const goToUserProfile = () => {
       </div>
     </Container>
   </a-layout-header>
+
+  <div v-else>
+    <a-layout-header class="nav-bar">
+      <div class="right-content">
+          <RouterLink to="/" class="bright-purple">Picbook</RouterLink>
+        
+      <a-input-search
+            class="search"
+            v-model:value="searchUsername"
+            placeholder="Nome do usuário..."
+            @search="onSearch"
+          />
+          </div>
+    </a-layout-header>
+  <a-layout-header class="nav-bar-mini">
+    <!-- container que criei p limitar o tamanho do header -->
+    <Container>   
+      <div class="nav-container-mini">
+        <div class="content" v-if="loadingUser">
+          <a-spin />
+        </div>
+        <div class="content" v-if="!loadingUser">
+          <!-- parte com problema -->
+          <div class="left-content" v-if="!user">
+            <auth-modal :isLogin="false" />
+            <auth-modal :isLogin="true" />
+          </div>
+          <div class="left-content" v-else>
+            <a-typography class="blank">{{ user.username }}</a-typography>
+            <a-button type="primary" @click="goToUserProfile()"
+              >Perfil</a-button
+            >
+            <a-button type="primary" @click="handleLogout()">Sair</a-button>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </a-layout-header>
+  </div>
 </template>
 
 <style scoped>
@@ -123,6 +162,15 @@ const goToUserProfile = () => {
 .nav-bar {
   position: fixed;
   top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.nav-bar-mini {
+  flex-shrink: 0; /* para nao encolher o footer */
+  position: fixed;
+  bottom: 0;
   left: 0;
   width: 100%;
   z-index: 10;

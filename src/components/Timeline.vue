@@ -25,12 +25,6 @@ const { user, loadingUser } = storeToRefs(userStore);
 </template>
 
 <style>
-.timeline-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 50px 0px;
-}
 
 .timeline-spinner {
   align-items: center;
