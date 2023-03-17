@@ -3,6 +3,10 @@ import { ref, defineProps, onMounted } from "vue";
 import { supabase } from "../supabase";
 import { useUserStore } from "../stores/users";
 import { storeToRefs } from "pinia";
+import { useCheckScreen } from "../stores/checkScreen";
+
+const checkScreen = useCheckScreen();
+const { isSmallScreen, isVerySmallScreen } = storeToRefs(checkScreen);
 
 const userStore = useUserStore();
 
@@ -66,10 +70,6 @@ const handleOk = async (e) => {
       loading.value = false;
       visible.value = false;
       caption.value = "";
-      /* props.addNewPost({
-        url: filePath,
-        caption: caption.value,
-      }); */
     }
   }
 };
@@ -86,10 +86,12 @@ const handleUploadChange = (e) => {
 </script>
 <template>
   <div>
-    <a-button type="primary" @click="showModal">Nova imagem</a-button>
-    <!-- mudar botoes aqui -->
+    <img v-if="props.previousProfilePic" @click="showModal" :class="{ 'img': !isVerySmallScreen, 'img-mini': isVerySmallScreen }"
+          :src="`${VITE_BASE_PHOTO_URL}${props.previousProfilePic}`"
+      /> 
+    <!-- <a-button v-else type="primary" @click="showModal">Nova imagem</a-button> -->
 
-    <a-modal v-model:visible="visible" title="Upload Photo" @ok="handleOk">
+    <a-modal cancelText="Cancelar" v-model:visible="visible" title="Upload Photo" @ok="handleOk">
       <div v-if="!loading">
         <input type="file" accept=".jpeg,.png" @change="handleUploadChange" />
         <a-typography v-if="errorMessage" type="danger">{{
@@ -106,6 +108,18 @@ const handleUploadChange = (e) => {
 <style scoped>
 input {
   margin-top: 10px;
+}
+
+.img-mini{
+    width: 30%;
+    height: 30%;
+    border-radius: 40%;
+}
+
+.img{
+    width: 20%;
+    height: 30%;
+    border-radius: 40%;
 }
 
 .spinner {

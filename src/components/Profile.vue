@@ -62,16 +62,19 @@ const fetchData = async () => {
     .eq("username", username)
     .single();
 
-  if (!user) {
+  if (!userData) {
     loading.value = false;
     return (user.value = null);
   }
   user.value = userData;
 
+
   const { data: postsData } = await supabase
     .from("posts")
     .select()
     .eq("owner_id", user.value.id);
+    
+  
 
   posts.value = postsData;
 

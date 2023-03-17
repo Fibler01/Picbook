@@ -62,7 +62,7 @@ const handleUploadChange = (e) => {
   <div>
     <a-button type="primary" @click="showModal">Nova imagem</a-button> <!-- mudar botoes aqui -->
 
-    <a-modal v-model:visible="visible" title="Upload Photo" @ok="handleOk">
+    <a-modal cancelText="Cancelar" v-model:visible="visible" title="Upload Photo" @ok="handleOk">
       <div v-if="!loading">
         <input type="file" accept=".jpeg,.png" @change="handleUploadChange" />
         <a-input

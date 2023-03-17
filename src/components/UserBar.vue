@@ -47,17 +47,13 @@ const unfollowUser = async () => {
   <div class="userbar-container" v-if="props.user">
     <div class="top-content">
       <a-typography-title class="black" :level="2"
-        >{{ props.user.username }}
-        <a-avatar
-          :src="`${VITE_BASE_PHOTO_URL}${props.user.profilePic}`"
-      ></a-avatar></a-typography-title>
-
-      <upload-profile-pic
+        >{{ props.user.username }} 
+        </a-typography-title>
+        <upload-profile-pic class="profilePic"
           v-if="user && profileUsername === user.username"
           :previousProfilePic ="props.user.profilePic"
           :addNewPost="addNewPost"
         />
-
       <div v-if="user">
         <upload-photo-modal
           v-if="user && profileUsername === user.username"
@@ -83,7 +79,7 @@ const unfollowUser = async () => {
       >
     </div>
   </div>
-  <div class="userbar-container" v-else>
+  <div class="user-notfound" v-else>
     <a-typography-title :level="2">Usuário não encontrado</a-typography-title>
   </div>
 </template>
@@ -91,6 +87,10 @@ const unfollowUser = async () => {
 <style scoped>
 .userbar-container {
   padding-bottom: 75px;
+}
+
+.user-notfound{
+    padding: 10%;
 }
 
 .bottom-content {
@@ -109,14 +109,19 @@ const unfollowUser = async () => {
   align-items: center;
 }
 
+.profilePic{
+    margin-left: 3%;
+}
+
 .top-content {
   padding: 8% 0px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
 
 .black {
+    display: flex;
   color: rgb(0, 0, 0);
   text-shadow: 0 0 10px #abbee6, 0 0 1px #ebe9e9, 0 0 10px #aea7a7,
     0 0 100px rgb(203, 203, 203), 0 0 100px rgb(255, 255, 255),

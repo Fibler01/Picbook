@@ -101,10 +101,9 @@ const goToUserProfile = () => {
   </a-layout-header>
 
   <div v-else>
-    <a-layout-header class="nav-bar">
+    <a-layout-header class="nav-bar-search">
       <div class="right-content">
           <RouterLink to="/" class="bright-purple">Picbook</RouterLink>
-        
       <a-input-search
             class="search"
             v-model:value="searchUsername"
@@ -160,6 +159,14 @@ const goToUserProfile = () => {
 }
 
 .nav-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.nav-bar-search {
   position: fixed;
   top: 0;
   left: 0;
