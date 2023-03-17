@@ -11,7 +11,7 @@ const { isSmallScreen, isVerySmallScreen } = storeToRefs(checkScreen);
 const userStore = useUserStore();
 
 const { user } = storeToRefs(userStore);
-const props = defineProps(["addNewPost", "previousProfilePic"]);
+const props = defineProps(["addNewPost", "previousProfilePic", "user", "profileUsername"]);
 const errorMessage = ref("");
 const loading = ref(false);
 const visible = ref(false);
@@ -76,6 +76,8 @@ const handleOk = async (e) => {
 
 onMounted(() => {
   console.log(props.previousProfilePic);
+  console.log(props.user);
+  
 });
 
 const handleUploadChange = (e) => {
@@ -86,9 +88,20 @@ const handleUploadChange = (e) => {
 </script>
 <template>
   <div>
+    <div v-if="user && props.profileUsername === user.username">
     <img v-if="props.previousProfilePic" @click="showModal" :class="{ 'img': !isVerySmallScreen, 'img-mini': isVerySmallScreen }"
           :src="`${VITE_BASE_PHOTO_URL}${props.previousProfilePic}`"
-      /> 
+      />
+      <img v-else @click="showModal" :class="{ 'img': !isVerySmallScreen, 'img-mini': isVerySmallScreen }"
+          src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG-File.png"
+      />
+    </div>
+    
+    <div v-else>
+    <img v-if="props.previousProfilePic" :class="{ 'img': !isVerySmallScreen, 'img-mini': isVerySmallScreen }"
+          :src="`${VITE_BASE_PHOTO_URL}${props.previousProfilePic}`"
+      />
+    </div>
     <!-- <a-button v-else type="primary" @click="showModal">Nova imagem</a-button> -->
 
     <a-modal cancelText="Cancelar" v-model:visible="visible" title="Upload Photo" @ok="handleOk">
@@ -118,7 +131,7 @@ input {
 
 .img{
     width: 20%;
-    height: 30%;
+    height: 20%;
     border-radius: 40%;
 }
 

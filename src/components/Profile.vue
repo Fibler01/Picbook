@@ -67,6 +67,7 @@ const fetchData = async () => {
     return (user.value = null);
   }
   user.value = userData;
+  /* console.log(user.value) */
 
 
   const { data: postsData } = await supabase

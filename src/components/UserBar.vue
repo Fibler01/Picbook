@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps } from "vue";
+import { defineProps, onMounted } from "vue";
 import UploadPhotoModal from "./UploadPhotoModal.vue";
 import UploadProfilePic from "./UploadProfilePic.vue";
 import { useUserStore } from "../stores/users";
@@ -25,6 +25,8 @@ const props = defineProps([
   "updateIsFollowing",
 ]);
 
+const userViewed = props.user;
+
 const followUser = async () => {
   props.updateIsFollowing(true);
   await supabase.from("followers_following").insert({
@@ -41,6 +43,10 @@ const unfollowUser = async () => {
     .eq("follower_id", user.value.id)
     .eq("following_id", props.user.id);
 };
+
+onMounted(() => {
+  /* console.log(props.user); */
+});
 </script>
 
 <template>
@@ -50,8 +56,9 @@ const unfollowUser = async () => {
         >{{ props.user.username }} 
         </a-typography-title>
         <upload-profile-pic class="profilePic"
-          v-if="user && profileUsername === user.username"
+          :profileUsername ="profileUsername"
           :previousProfilePic ="props.user.profilePic"
+         :user ="userViewed"
           :addNewPost="addNewPost"
         />
       <div v-if="user">
