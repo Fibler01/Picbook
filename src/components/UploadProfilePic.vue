@@ -87,7 +87,7 @@ const handleUploadChange = (e) => {
 };
 </script>
 <template>
-  <div>
+  <div :class="{ 'flexing': !isVerySmallScreen, 'flexing-mini': isVerySmallScreen }">
     <div v-if="user && props.profileUsername === user.username">
     <img v-if="props.previousProfilePic" @click="showModal" :class="{ 'img': !isVerySmallScreen, 'img-mini': isVerySmallScreen }"
           :src="`${VITE_BASE_PHOTO_URL}${props.previousProfilePic}`"
@@ -104,7 +104,7 @@ const handleUploadChange = (e) => {
     </div>
     <!-- <a-button v-else type="primary" @click="showModal">Nova imagem</a-button> -->
 
-    <a-modal cancelText="Cancelar" v-model:visible="visible" title="Upload Photo" @ok="handleOk">
+    <a-modal cancelText="Cancelar" v-model:visible="visible" title="Enviar foto" @ok="handleOk">
       <div v-if="!loading">
         <input type="file" accept=".jpeg,.png" @change="handleUploadChange" />
         <a-typography v-if="errorMessage" type="danger">{{
@@ -127,6 +127,16 @@ input {
     width: 30%;
     height: 30%;
     border-radius: 40%;
+}
+
+.flexing{
+  position: absolute;
+  left: 8%;
+}
+
+.flexing-mini{
+  position: absolute;
+  left: 18%;
 }
 
 .img{
