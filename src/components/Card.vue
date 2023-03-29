@@ -10,7 +10,6 @@ const props = defineProps(["post"]);
 const { VITE_BASE_PHOTO_URL } = import.meta.env;
 </script>
 
-
 <template>
   <a-card hoverable class="card" :class="{ 'card': !isVerySmallScreen, 'card-mini': isVerySmallScreen }">
     <template #cover>
@@ -35,8 +34,8 @@ const { VITE_BASE_PHOTO_URL } = import.meta.env;
 }
 
 .card-mini {
-  max-width: 60%;
-  min-width: 60%;
+  max-width: 80%;
+  min-width: 80%;
   align-items: center;
   text-align: center;
   margin-bottom: 20px;

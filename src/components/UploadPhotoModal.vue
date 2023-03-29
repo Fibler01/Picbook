@@ -59,7 +59,7 @@ const handleUploadChange = (e) => {
 };
 </script>
 <template>
-  <div>
+  <div style="margin-left:1%">
     <a-button type="primary" @click="showModal">Nova imagem</a-button> <!-- mudar botoes aqui -->
 
     <a-modal cancelText="Cancelar" v-model:visible="visible" title="Enviar foto" @ok="handleOk">

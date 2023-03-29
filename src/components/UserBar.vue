@@ -105,6 +105,7 @@ onMounted(() => {
 
 .bottom-content {
   /* border-bottom: 3px solid black; */
+  margin-left: 1%;
   /* background-image: linear-gradient(to right, #d3d3d3, #fff); */
   background-size: 100% 3px; /* tamanho de plano de fundo de 100% largura e 3px de altura */
   background-position: left bottom; /* posicionamento do plano de fundo no canto inferior esquerdo */
@@ -124,6 +125,7 @@ onMounted(() => {
 }
 
 .top-content {
+  margin-left: 1%;
   padding: 8% 0px;
   display: flex;
   align-items: center;
