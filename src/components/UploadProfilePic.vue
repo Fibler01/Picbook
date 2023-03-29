@@ -89,13 +89,15 @@ const handleUploadChange = (e) => {
 </script>
 <template>
   <div>
-    <div v-if="user && props.profileUsername === user.username">
-    <img v-if="props.previousProfilePic" @click="showModal" :class="{ 'img': !isVerySmallScreen, 'img-mini': isVerySmallScreen }"
+    <div v-if="user && props.profileUsername === user.username" @click="showModal">
+      
+    <img v-if="props.previousProfilePic" :class="{ 'img': !isVerySmallScreen, 'img-mini': isVerySmallScreen }"
           :src="`${VITE_BASE_PHOTO_URL}${props.previousProfilePic}`"
       />
-      <img v-else @click="showModal" :class="{ 'img': !isVerySmallScreen, 'img-mini': isVerySmallScreen }"
+      <img v-else :class="{ 'img': !isVerySmallScreen, 'img-mini': isVerySmallScreen }"
           src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG-File.png"
       />
+      <font-awesome-icon size="lg" icon="fa-solid fa-user-pen" />
     </div>
     
     <div v-else>
@@ -122,6 +124,15 @@ const handleUploadChange = (e) => {
 <style scoped>
 input {
   margin-top: 10px;
+}
+
+
+
+.icon-class {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: red;
 }
 
 .img-mini{

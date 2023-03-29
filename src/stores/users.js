@@ -150,7 +150,8 @@ export const useUserStore = defineStore('users', () => {
     user.value = {
       username: userWithEmail.username,
       email: userWithEmail.email,
-      id: userWithEmail.id
+      id: userWithEmail.id,
+      profilePic: userWithEmail.profilePic
     }
 
     loadingUser.value = false;

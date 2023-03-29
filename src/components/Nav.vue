@@ -11,7 +11,7 @@ const checkScreen = useCheckScreen();
 const { isSmallScreen, isVerySmallScreen } = storeToRefs(checkScreen);
 
 const userStore = useUserStore();
-
+const { VITE_BASE_PHOTO_URL } = import.meta.env;
 
 const { user, loadingUser } = storeToRefs(userStore);
 const router = useRouter();
@@ -59,14 +59,17 @@ const goToUserProfile = () => {
             <auth-modal :isLogin="true" />
           </div>
           <div class="left-content" v-else>
-            <a-typography class="blank">{{ user.username }}</a-typography>
+            <a-typography class="blank">{{ user.username }}</a-typography> 
             <a-button type="primary" @click="goToUserProfile()"
               >Perfil</a-button
             >
-            <a-button type="primary" @click="handleLogout()">Sair</a-button>
+            
+            <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" size="lg" style="color: #f7454e; margin-left:20%;" @click="handleLogout()"/>
+            <!-- <a-button type="primary" @click="handleLogout()">Sair</a-button> -->
           </div>
         </div>
       </div>
+      
       
       <div v-if="isSmallScreen" class="nav-container-mini">
         <div class="right-content">
@@ -93,7 +96,8 @@ const goToUserProfile = () => {
             <a-button type="primary" @click="goToUserProfile()"
               >Perfil</a-button
             >
-            <a-button type="primary" @click="handleLogout()">Sair</a-button>
+            <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" size="lg" style="color: #f7454e; margin-left:20%;" @click="handleLogout()"/>
+            
           </div>
         </div>
       </div>
@@ -130,7 +134,8 @@ const goToUserProfile = () => {
             <a-button type="primary" @click="goToUserProfile()"
               >Perfil</a-button
             >
-            <a-button type="primary" @click="handleLogout()">Sair</a-button>
+            <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" size="lg" style="color: #f7454e; margin-left:20%;" @click="handleLogout()"/>
+            
           </div>
         </div>
       </div>
