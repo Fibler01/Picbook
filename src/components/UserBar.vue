@@ -33,6 +33,7 @@ const followUser = async () => {
     follower_id: user.value.id,
     following_id: props.user.id /* voce que apertou para seguir */,
   });
+  props.userInfo.followers = props.userInfo.followers + 1;
 };
 
 const unfollowUser = async () => {
@@ -42,6 +43,7 @@ const unfollowUser = async () => {
     .delete()
     .eq("follower_id", user.value.id)
     .eq("following_id", props.user.id);
+  props.userInfo.followers = props.userInfo.followers - 1;
 };
 
 onMounted(() => {
@@ -61,7 +63,9 @@ onMounted(() => {
          :user ="userViewed"
           :addNewPost="addNewPost"
         />
-      <div v-if="user">
+      
+    </div>
+    <div v-if="user">
         <upload-photo-modal
           v-if="user && profileUsername === user.username"
           :addNewPost="addNewPost"
@@ -72,8 +76,7 @@ onMounted(() => {
           >
           <a-button v-else @click="unfollowUser">Seguindo</a-button>
         </div>
-      </div>
-    </div>
+      </div><br>
     <div class="bottom-content">
       <a-typography-title :level="5"
         >{{ props.userInfo.posts }} posts</a-typography-title
@@ -124,7 +127,6 @@ onMounted(() => {
   padding: 8% 0px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 
 .black {

@@ -26,7 +26,7 @@ const props = defineProps(["posts"]);
 }
 
 .img-mini {
-  margin: 5px;
+  margin: 1%;
   width: 31%;
 }
 </style>

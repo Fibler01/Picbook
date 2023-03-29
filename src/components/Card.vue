@@ -25,6 +25,7 @@ const { VITE_BASE_PHOTO_URL } = import.meta.env;
 <style scoped>
 .card {
   max-width: 30%;
+  min-width: 30%;
   align-items: center;
   text-align: center;
   margin-bottom: 20px;
@@ -35,6 +36,7 @@ const { VITE_BASE_PHOTO_URL } = import.meta.env;
 
 .card-mini {
   max-width: 60%;
+  min-width: 60%;
   align-items: center;
   text-align: center;
   margin-bottom: 20px;

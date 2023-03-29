@@ -151,6 +151,7 @@ const goToUserProfile = () => {
 
 .nav-container-mini {
   display: flex; /* para deixar tudo horizontal */
+  float: right;
 }
 
 .content {

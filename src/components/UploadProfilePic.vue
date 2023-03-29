@@ -67,6 +67,7 @@ const handleOk = async (e) => {
         })
         .eq("id", user.value.id);
 
+      props.user.profilePic = filePath;
       loading.value = false;
       visible.value = false;
       caption.value = "";
@@ -87,7 +88,7 @@ const handleUploadChange = (e) => {
 };
 </script>
 <template>
-  <div :class="{ 'flexing': !isVerySmallScreen, 'flexing-mini': isVerySmallScreen }">
+  <div>
     <div v-if="user && props.profileUsername === user.username">
     <img v-if="props.previousProfilePic" @click="showModal" :class="{ 'img': !isVerySmallScreen, 'img-mini': isVerySmallScreen }"
           :src="`${VITE_BASE_PHOTO_URL}${props.previousProfilePic}`"
@@ -124,19 +125,9 @@ input {
 }
 
 .img-mini{
-    width: 30%;
-    height: 30%;
+    width: 80px;
+  height: 80px;
     border-radius: 40%;
-}
-
-.flexing{
-  position: absolute;
-  left: 8%;
-}
-
-.flexing-mini{
-  position: absolute;
-  left: 18%;
 }
 
 .img{
