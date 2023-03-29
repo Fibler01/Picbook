@@ -131,8 +131,8 @@ input {
 }
 
 .img{
-    width: 20%;
-    height: 20%;
+    width: 200px;
+  height: 200px;
     border-radius: 40%;
 }
 
