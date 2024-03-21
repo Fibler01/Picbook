@@ -89,7 +89,7 @@ const handleUploadChange = (e) => {
 </script>
 <template>
   <div>
-    <div v-if="user && props.profileUsername === user.username" @click="showModal">
+    <div v-if="user && props.profileUsername === user.username" @click="showModal" class="profilePicContainer">
       
     <img v-if="props.previousProfilePic" :class="{ 'img': !isVerySmallScreen, 'img-mini': isVerySmallScreen }"
           :src="`${VITE_BASE_PHOTO_URL}${props.previousProfilePic}`"
@@ -97,7 +97,7 @@ const handleUploadChange = (e) => {
       <img v-else :class="{ 'img': !isVerySmallScreen, 'img-mini': isVerySmallScreen }"
           src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG-File.png"
       />
-      <font-awesome-icon size="lg" icon="fa-solid fa-user-pen" />
+      <font-awesome-icon size="lg" icon="fa-solid fa-user-pen" class="penIcon"/>
     </div>
     
     <div v-else>
@@ -136,20 +136,44 @@ input {
 }
 
 .img-mini{
-    width: 80px;
-  height: 80px;
-    border-radius: 40%;
+    background-size: contain;
+  position: absolute;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
 }
 
 .img{
-    width: 200px;
-  height: 200px;
-    border-radius: 40%;
+   background-size: contain;
+  position: absolute;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+}
+
+.profilePicContainer {
+  width: 20vh; /* Adjust width and height as needed */
+  height: 20vh;
+  overflow: hidden;
+}
+
+.profilePicContainerMini {
+  width: 50px; /* Adjust width and height as needed */
+  height: 50px;
+  overflow: hidden;
 }
 
 .spinner {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.penIcon {
+  position: absolute; /* Position the pen icon relative to its closest positioned ancestor */
+  bottom: 0; /* Adjust as needed */
+  right: 2; /* Adjust as needed */
 }
 </style>
