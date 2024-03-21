@@ -5,7 +5,7 @@ import AuthModal from "./AuthModal.vue";
 import { ref, watch } from "vue";
 import { useUserStore } from "../stores/users";
 import { storeToRefs } from "pinia";
-import { useCheckScreen } from "../stores/checkScreen"
+import { useCheckScreen } from "../stores/checkScreen";
 
 const checkScreen = useCheckScreen();
 const { isSmallScreen, isVerySmallScreen } = storeToRefs(checkScreen);
@@ -58,19 +58,36 @@ const goToUserProfile = () => {
             <auth-modal :isLogin="false" />
             <auth-modal :isLogin="true" />
           </div>
-          <div class="left-content" v-else>
-            <a-typography class="blank">{{ user.username }}</a-typography> 
-            <a-button type="primary" @click="goToUserProfile()"
-              >Perfil</a-button
-            >
-            
-            <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" size="lg" style="color: #f7454e; margin-left:20%;" @click="handleLogout()"/>
-            <!-- <a-button type="primary" @click="handleLogout()">Sair</a-button> -->
+          <div class="left-content" v-else style="display: flex">
+            <div style="flex: 1">
+              <a-typography
+                class="blank"
+                style="
+                  max-width: 150px;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                "
+                >{{ user.username }}</a-typography
+              >
+            </div>
+            <div style="flex: 1">
+              <a-button type="primary" @click="goToUserProfile()"
+                >Perfil</a-button
+              >
+            </div>
+          <div>
+            <font-awesome-icon
+              icon="fa-solid fa-arrow-right-from-bracket"
+              size="lg"
+              style="color: #f7454e; margin-left: 50%"
+              @click="handleLogout()"
+            />
+            </div>
           </div>
         </div>
       </div>
-      
-      
+
       <div v-if="isSmallScreen" class="nav-container-mini">
         <div class="right-content">
           <RouterLink to="/" class="bright-purple">Picbook</RouterLink>
@@ -91,13 +108,32 @@ const goToUserProfile = () => {
             <auth-modal :isLogin="false" />
             <auth-modal :isLogin="true" />
           </div>
-          <div class="left-content" v-else>
-            <a-typography class="blank">{{ user.username }}</a-typography>
-            <a-button type="primary" @click="goToUserProfile()"
-              >Perfil</a-button
-            >
-            <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" size="lg" style="color: #f7454e; margin-left:20%;" @click="handleLogout()"/>
-            
+          <div class="left-content" v-else style="display: flex">
+            <div style="flex: 1">
+              <a-typography
+                class="blank"
+                style="
+                  max-width: 150px;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                "
+                >{{ user.username }}</a-typography
+              >
+            </div>
+            <div style="flex: 1">
+              <a-button type="primary" @click="goToUserProfile()"
+                >Perfil</a-button
+              >
+            </div>
+          <div>
+            <font-awesome-icon
+              icon="fa-solid fa-arrow-right-from-bracket"
+              size="lg"
+              style="color: #f7454e; margin-left: 50%"
+              @click="handleLogout()"
+            />
+            </div>
           </div>
         </div>
       </div>
@@ -107,40 +143,59 @@ const goToUserProfile = () => {
   <div v-else>
     <a-layout-header class="nav-bar-search">
       <div class="right-content">
-          <RouterLink to="/" class="bright-purple">Picbook</RouterLink>
-      <a-input-search
-            class="search"
-            v-model:value="searchUsername"
-            placeholder="Nome do usuário..."
-            @search="onSearch"
-          />
-          </div>
-    </a-layout-header>
-  <a-layout-header class="nav-bar-mini">
-    <!-- container que criei p limitar o tamanho do header -->
-    <Container>   
-      <div class="nav-container-mini">
-        <div class="content" v-if="loadingUser">
-          <a-spin />
-        </div>
-        <div class="content" v-if="!loadingUser">
-          <!-- parte com problema -->
-          <div class="left-content" v-if="!user">
-            <auth-modal :isLogin="false" />
-            <auth-modal :isLogin="true" />
-          </div>
-          <div class="left-content" v-else>
-            <a-typography class="blank">{{ user.username }}</a-typography>
-            <a-button type="primary" @click="goToUserProfile()"
-              >Perfil</a-button
-            >
-            <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" size="lg" style="color: #f7454e; margin-left:20%;" @click="handleLogout()"/>
-            
-          </div>
-        </div>
+        <RouterLink to="/" class="bright-purple">Picbook</RouterLink>
+        <a-input-search
+          class="search"
+          v-model:value="searchUsername"
+          placeholder="Nome do usuário..."
+          @search="onSearch"
+        />
       </div>
-    </Container>
-  </a-layout-header>
+    </a-layout-header>
+    <a-layout-header class="nav-bar-mini">
+      <!-- container que criei p limitar o tamanho do header -->
+      <Container>
+        <div class="nav-container-mini">
+          <div class="content" v-if="loadingUser">
+            <a-spin />
+          </div>
+          <div class="content" v-if="!loadingUser">
+            <!-- parte com problema -->
+            <div class="left-content" v-if="!user">
+              <auth-modal :isLogin="false" />
+              <auth-modal :isLogin="true" />
+            </div>
+            <div class="left-content" v-else style="display: flex">
+            <div style="flex: 1">
+              <a-typography
+                class="blank"
+                style="
+                  max-width: 150px;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                "
+                >{{ user.username }}</a-typography
+              >
+            </div>
+            <div style="flex: 1">
+              <a-button type="primary" @click="goToUserProfile()"
+                >Perfil</a-button
+              >
+            </div>
+          <div>
+            <font-awesome-icon
+              icon="fa-solid fa-arrow-right-from-bracket"
+              size="lg"
+              style="color: #f7454e; margin-left: 50%"
+              @click="handleLogout()"
+            />
+            </div>
+          </div>
+          </div>
+        </div>
+      </Container>
+    </a-layout-header>
   </div>
 </template>
 
@@ -150,7 +205,7 @@ const goToUserProfile = () => {
   justify-content: space-between;
 }
 
-.blank{
+.blank {
   margin-left: 10%;
 }
 
